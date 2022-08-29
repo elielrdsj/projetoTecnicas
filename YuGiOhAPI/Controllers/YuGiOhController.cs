@@ -81,5 +81,12 @@ namespace YuGiOhAPI.Controllers
             var typeCount = dataContext.YugiohDb.Where(x => x.str1.Contains(str1)).Count();
             return Ok(typeCount * 100 / dataContext.YugiohDb.ToList().Count());
         }
+        [HttpDelete("~/deletecard")]
+        public async Task<ActionResult> Delete(Yugioh card)
+        {
+            if (dataContext.YugiohDb.Contains(card))
+                dataContext.YugiohDb.ToList().Remove(card);
+            else return BadRequest();
+        }
     }
 }
